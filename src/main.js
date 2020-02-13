@@ -64,26 +64,24 @@ window.app = new vue({
       zadachi[zadachi.length + 1] = t;
     },
     addToDo(t) {
-      zadachi.push({
-        return {
-          id: zadachi.length + 1,
-          name: t.name
-        }
-      })
+      this.innerData.zadachi.push({
+        id: zadachi.length + 1,
+        name: t.name
+      });
     },
     remove(t) {
-      var todos = [];
+      // var todos = [];
 
+      let index = this.innerData.zadachi.indexOf(t);
+      this.innerData.zadachi.splice(index, 1);
 
-
-      for (var i = 0; i < todos.length; i++) {
-        if (todos[i].name !== t.name) {
-          todos.push(todos[i]);
-        }
-      }
-      this.$set(this.innerData, "zadachi", todos);
+      // for (var i = 0; i < todos.length; i++) {
+      //   if (todos[i].name !== t.name) {
+      //     todos.push(todos[i]);
+      //   }
+      // }
+      // this.$set(this.innerData, "zadachi", todos);
     },
-
     setFilter(filter) {
       this.$set(this.innerData, "activeFilter", filter);
     }
