@@ -6,84 +6,13 @@
 // 3.2. [опционально] Переписать код как душа просит
 // Комментарии по ошибкам можно писать прямо в коде
 
-const Vue = require('vue')
+const Vue = require('vue').default
+const App = require('./App.vue').default
+
+const uuidInstance = require('uuid/v1')
+
+Vue.prototype.$uuid = uuidInstance
 
 window.app = new Vue({
-  el: '#app',
-
-  data() {
-    return {
-      innerData: {
-        zadachi: [],
-        activeFilter: ''
-      },
-      value: 'Задача 1'
-    }
-  },
-  created() {
-    const search = document.getElementById('search') || {}
-    search.focus()
-  },
-  template: `
-    <div>
-        <input v-bind:value="value" id="search" />
-        <button v-on:click="todo()">Добавить задачу</button>
-
-        <div v-if="innerData.activeFilter == 'active'">
-          <div v-for="todo in innerData.zadachi" v-if="todo.completed != true">
-            {{ todo.name }}
-            <div v-on:click="remove(todo)"></div>
-          </div>
-        </div>
-
-        <div v-if="innerData.activeFilter == 'Все'">
-        1212
-          <div v-for="todo in innerData.zadachi">
-            {{ todo.name }}
-            <div v-on:click="remove(todo)"></div>
-          </div>
-        </div>
-
-        <div v-if="innerData.activeFilter == 'completed'">
-          <div v-for="todo in innerData.zadachi" v-if="todo.completed == true">
-            {{ todo.name }}
-            <div v-on:click="remove(todo)"></div>
-          </div>
-        </div>
- 
-        <div>
-        <span v-on:click="setFilter('active')">Активные</span>
-        <span v-on:click="setFilter('all')">Все</span>
-        <span v-on:click="setFilter('completed')">Завершенные</span>
-        </div>
-    </div>
-  `,
-
-  methods: {
-    todo(t) {
-      // zadachi[zadachi.length + 1] = t
-    },
-    addToDo(t) {
-      this.innerData.zadachi.push({
-        id: this.innerData.zadachi.length + 1,
-        name: t.name
-      })
-    },
-    remove(t) {
-      // var todos = [];
-
-      const index = this.innerData.zadachi.indexOf(t)
-      this.innerData.zadachi.splice(index, 1)
-
-      // for (var i = 0; i < todos.length; i++) {
-      //   if (todos[i].name !== t.name) {
-      //     todos.push(todos[i]);
-      //   }
-      // }
-      // this.$set(this.innerData, "zadachi", todos);
-    },
-    setFilter(filter) {
-      this.$set(this.innerData, 'activeFilter', filter)
-    }
-  }
-})
+  render: h => h(App)
+}).$mount('#app')
