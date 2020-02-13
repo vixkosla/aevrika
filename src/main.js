@@ -6,23 +6,23 @@
 // 3.2. [опционально] Переписать код как душа просит
 // Комментарии по ошибкам можно писать прямо в коде
 
-var vue = require("vue");
+const Vue = require('vue')
 
-window.app = new vue({
-  el: "#app",
+window.app = new Vue({
+  el: '#app',
 
   data() {
     return {
       innerData: {
         zadachi: [],
-        activeFilter: ""
+        activeFilter: ''
       },
-      value: "Задача 1"
-    };
+      value: 'Задача 1'
+    }
   },
   created() {
-    var search = document.getElementById("search") || {};
-    search.focus();
+    const search = document.getElementById('search') || {}
+    search.focus()
   },
   template: `
     <div>
@@ -61,19 +61,19 @@ window.app = new vue({
 
   methods: {
     todo(t) {
-      zadachi[zadachi.length + 1] = t;
+      // zadachi[zadachi.length + 1] = t
     },
     addToDo(t) {
       this.innerData.zadachi.push({
-        id: zadachi.length + 1,
+        id: this.innerData.zadachi.length + 1,
         name: t.name
-      });
+      })
     },
     remove(t) {
       // var todos = [];
 
-      let index = this.innerData.zadachi.indexOf(t);
-      this.innerData.zadachi.splice(index, 1);
+      const index = this.innerData.zadachi.indexOf(t)
+      this.innerData.zadachi.splice(index, 1)
 
       // for (var i = 0; i < todos.length; i++) {
       //   if (todos[i].name !== t.name) {
@@ -83,7 +83,7 @@ window.app = new vue({
       // this.$set(this.innerData, "zadachi", todos);
     },
     setFilter(filter) {
-      this.$set(this.innerData, "activeFilter", filter);
+      this.$set(this.innerData, 'activeFilter', filter)
     }
   }
-});
+})
